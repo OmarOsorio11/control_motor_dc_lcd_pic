@@ -1,0 +1,46 @@
+#include <main.h>
+#include <lcd.c>
+
+#use standard_io(a)
+#use standard_io(c)
+
+void main()
+{
+   lcd_init();
+   set_tris_a(0b11111);
+   set_tris_c(0b00000000);
+   
+   output_high(PIN_B2);
+   
+   while(TRUE)
+   {
+      
+      
+      
+      if (input_state(PIN_A0)==1)
+      {
+         lcd_gotoxy(1,1);
+         printf(lcd_putc, "Motor encendido");
+         lcd_gotoxy(1,2);
+         printf(lcd_putc, "Derecha");
+         output_high(PIN_C0);
+      }
+      else if (input_state(PIN_A1)==1)
+      {
+         lcd_gotoxy(1,1);
+         printf(lcd_putc, "Motor encendido");
+         lcd_gotoxy(1,2);
+         printf(lcd_putc, "Izquierda");
+         
+         output_high(PIN_C1);
+      } 
+      else    
+      {
+         lcd_gotoxy(1,1);
+         printf(lcd_putc, "\f Motor apagado");
+         output_low(PIN_C0);
+         output_low(PIN_C1);
+         delay_ms(100);
+      }  
+   }
+}
